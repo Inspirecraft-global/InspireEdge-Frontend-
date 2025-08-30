@@ -101,15 +101,21 @@ export const DashboardApi = createApi({
         method: 'GET',
       }),
     }),
-    competitorsInsight: builder.query({
+    /*    competitorsInsight: builder.query({
+      query: () => ({
+        url: '/competitive-intelligence/dashboard',
+        method: 'GET',
+      }),
+    }), */
+    comepetitorsResponse: builder.query({
       query: () => ({
         url: '/competitive-intelligence/dashboard',
         method: 'GET',
       }),
     }),
-    comepetitorsResponse: builder.query({
+    customerResponse: builder.query({
       query: () => ({
-        url: '/competitive-intelligence/dashboard',
+        url: '/customer-analytics/overview',
         method: 'GET',
       }),
     }),
@@ -131,5 +137,6 @@ export const {
   usePriceBenchMarkingAuditsQuery,
   useOverViewResponseQuery,
   useCompetitorsInsightQuery,
+  useCustomerResponseQuery,
   useComepetitorsResponseQuery,
 } = DashboardApi;

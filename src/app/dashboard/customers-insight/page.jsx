@@ -17,9 +17,11 @@ import {
 } from '@/redux/DashboardApi';
 
 export default function page() {
-  /*   const { data } = useComepetitorsResponseQuery;
-  console.log(data); */nm 
-  const { data } = useComepetitorsResponseQuery();
+  const { data, isLoading } = useComepetitorsResponseQuery();
+
+  if (isLoading) {
+    return <h2>Loading Data</h2>;
+  }
   console.log(data);
   return (
     <div className="flex flex-col gap-7 manrope">
@@ -33,8 +35,8 @@ export default function page() {
         </button>
       </div>
       <CustomerCards data={data} />
-      <CustomerTable />
-      <MarketRader />
+      <CustomerTable data={data} />
+      <MarketRader data={data} />
       <YourEdge />
     </div>
   );

@@ -1,33 +1,6 @@
 'use client';
 import React, { useState } from 'react';
 
-const data = [
-  {
-    sku: 'Competitor Alpha',
-    price: '20 % off holiday salees',
-    threatLevel: 'Low',
-    suggestedAction: 'Hold',
-  },
-  {
-    sku: 'Competitor Alpha',
-    price: '20 % off holiday salees',
-    threatLevel: 'Medium',
-    suggestedAction: 'Promote',
-  },
-  {
-    sku: 'Competitor Alpha',
-    price: '20 % off holiday salees',
-    threatLevel: 'High',
-    suggestedAction: 'Adjust Price',
-  },
-  {
-    sku: 'Competitor Alpha',
-    price: '20 % off holiday salees',
-    threatLevel: 'Low',
-    suggestedAction: 'Hold',
-  },
-];
-
 const getThreatColor = (level) => {
   switch (level) {
     case 'Low':
@@ -40,14 +13,15 @@ const getThreatColor = (level) => {
       return '';
   }
 };
-export default function CustomerTable() {
+
+export default function CustomerTable({ data }) {
   const [selected, setSelected] = useState([]);
 
   const toggleSelectAll = () => {
-    if (selected.length === data.length) {
+    if (selected.length === data?.productPerformance?.competitors?.length) {
       setSelected([]);
     } else {
-      setSelected(data.map((_, i) => i));
+      setSelected(data.productPerformance.competitors.map((_, i) => i));
     }
   };
 
@@ -56,15 +30,16 @@ export default function CustomerTable() {
       prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
     );
   };
+
   return (
     <div className="manrope">
       <h3 className="text-black-100 font-medium text-xl">
         Product Performance
       </h3>
-      <div className="overflow-x-auto mt-5 ">
-        <table className="min-w-full border rounded-md border-[#F1F1F1] divide-y divide-[#F1F1F1]">
+      <div className="overflow-x-auto w-full  mt-5">
+        <table className="min-w-[900px] w-full border rounded-md border-[#F1F1F1] divide-y divide-[#F1F1F1]">
           <thead className="bg-[#F9F9F9] rounded-md">
-            <tr className="rounded-md h-[56px]  ">
+            <tr className="rounded-md h-[56px]">
               <th className="p-5 text-left text-sm font-medium text-black-200">
                 Competitor
               </th>
@@ -79,27 +54,42 @@ export default function CustomerTable() {
               </th>
             </tr>
           </thead>
-          <tbody className="divide-y-1 divide-[#F1F1F1]  bg-white">
-            {data.map((item, idx) => (
+          <tbody className="divide-y divide-[#F1F1F1] bg-white">
+            {data?.productPerformance?.competitors?.map((item, idx) => (
               <tr
                 key={idx}
+                onClick={() => toggleRow(idx)}
                 className={`hover:bg-gray-50 transition ${
                   selected.includes(idx) ? 'bg-blue-50' : ''
                 }`}
               >
-                <td className="p-5 font-medium text-black-300">{item.sku}</td>
-                <td className="p-5 font-medium text-black-300">{item.price}</td>
+                {/* Competitor name & domain */}
                 <td className="p-5 font-medium text-black-300">
-                  <span
-                    className={`px-10 py-3 rounded-full text-sm font-medium ${getThreatColor(
-                      item.threatLevel
-                    )}`}
-                  >
-                    {item.threatLevel}
+                  {item.competitor} <br />
+                  <span className="text-xs text-gray-500">
+                    {item.competitorDomain}
                   </span>
                 </td>
+
+                {/* Recent Price Changes */}
+                <td className="p-5 font-medium text-black-300">
+                  {item.recentPriceChanges}
+                </td>
+
+                {/* Threat Score */}
+                <td className="p-5 font-medium text-black-300">
+                  <span
+                    className={`px-4 py-1 rounded-full text-sm font-medium ${getThreatColor(
+                      item.threatScore
+                    )}`}
+                  >
+                    {item.threatScore} ({item.threatScoreValue})
+                  </span>
+                </td>
+
+                {/* New Campaign Detected */}
                 <td className="p-5 font-medium text-black-200">
-                  {item.suggestedAction}
+                  {item.newCampaignDetected ?? 'None'}
                 </td>
               </tr>
             ))}

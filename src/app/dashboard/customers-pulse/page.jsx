@@ -9,12 +9,15 @@ import RecoveryScore from '@/components/Dashboard/RecoveryScore';
 import FrictionPoints from '@/components/Dashboard/FrictionPoints';
 import ProductPerformance from '@/components/Dashboard/ProductPerformance';
 import InsightEdge from '@/components/Dashboard/InsightEdge';
+import { useCustomerResponseQuery } from '@/redux/DashboardApi';
 
 const HeatChart = dynamic(() => import('@/components/Dashboard/HeatChart'), {
   ssr: false,
 });
 
 export default function page() {
+  const { data, isLoading } = useCustomerResponseQuery();
+  console.log(data);
   return (
     <div className="flex flex-col gap-7 manrope">
       <div className="flex justify-between items-center flex-col gap-3 md:flex-row ">

@@ -10,7 +10,11 @@ import DownloadIcon from '../../../../public/icons/DownloadIcon';
 import { useMarketOverviewResponseQuery } from '@/redux/DashboardApi';
 
 export default function page() {
-  const { data } = useMarketOverviewResponseQuery();
+  const { data, isLoading } = useMarketOverviewResponseQuery();
+
+  if (isLoading) {
+    return <h3>Loading Data</h3>;
+  }
   console.log(data);
   return (
     <div className="flex flex-col gap-7 manrope">

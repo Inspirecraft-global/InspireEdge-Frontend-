@@ -53,7 +53,7 @@ export default function Marketcards({ data }) {
         icon={<Graph />}
         textColor={'text-black-100'}
         backgroundColor={'bg-lemon-200'}
-        price={data?.salesVelocity?.value}
+        price={data?.salesVelocity?.value + '%'}
         topic={'Sales Velocity'}
         percentage={data?.salesVelocity?.change}
         show={show}

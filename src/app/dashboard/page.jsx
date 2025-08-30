@@ -15,7 +15,7 @@ import { useOverViewResponseQuery } from '@/redux/DashboardApi';
 export default function Dashboard() {
   const [status, setStatus] = useState(false);
   const [show, setShow] = useState(true);
-  const { data } = useOverViewResponseQuery();
+  const { data, isLoading } = useOverViewResponseQuery();
   const originalPrice = 20000;
   const price = 3000;
 
@@ -28,7 +28,9 @@ export default function Dashboard() {
     }
   }, [price, originalPrice]);
   const name = 'john';
-
+  if (isLoading) {
+    return <h3>Loading Data</h3>;
+  }
   return (
     <div className="flex flex-col gap-7 manrope">
       <Header
@@ -41,7 +43,7 @@ export default function Dashboard() {
           icon={<Graph />}
           textColor={'text-black-100'}
           backgroundColor={'bg-lemon-200'}
-          price={data?.overview?.summary?.currentRecoveryRate?.value}
+          price={data?.overview?.summary?.currentRecoveryRate?.value + '%'}
           topic={'Current Recovery rate'}
           percentage={'2'}
           show={show}
@@ -52,7 +54,7 @@ export default function Dashboard() {
           icon={<CartIcon />}
           textColor={'text-white'}
           backgroundColor={'bg-black-200'}
-          price={data?.overview?.summary?.abandonedCarts?.value}
+          price={data?.overview?.summary?.abandonedCarts?.value + '%'}
           topic={'Current Recovery rate'}
           percentage={'2'}
           change={data?.overview?.summary?.abandonedCarts?.change}
@@ -63,7 +65,7 @@ export default function Dashboard() {
           icon={<WalletIcon />}
           textColor={'text-black-100'}
           backgroundColor={'bg-lemon-400'}
-          price={data?.overview?.summary?.recoverableRevenue?.value}
+          price={data?.overview?.summary?.recoverableRevenue?.value + '%'}
           topic={'Current Recovery rate'}
           change={data?.overview?.summary?.recoverableRevenue?.change}
           percentage={'2'}
