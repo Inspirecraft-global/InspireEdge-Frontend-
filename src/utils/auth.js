@@ -1,26 +1,24 @@
 import Cookies from 'js-cookie';
 
 export const setAuthTokens = (accessToken, refreshToken) => {
-  // Store the access token (the main token used for API calls)
   Cookies.set('Inspire-token', accessToken, {
-    expires: 7, // 7 days
+    expires: 7,
     secure: process.env.NODE_ENV === 'production',
-    sameSite: 'strict'
+    sameSite: 'strict',
   });
-  
-  // Optionally store refresh token if provided
+
   if (refreshToken) {
     Cookies.set('Inspire-refresh-token', refreshToken, {
-      expires: 30, // 30 days (longer than access token)
+      expires: 30,
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict'
+      sameSite: 'strict',
     });
   }
 };
 
 export const getAuthTokens = () => {
   return {
-    token: Cookies.get('Inspire-token')
+    token: Cookies.get('Inspire-token'),
   };
 };
 
@@ -31,4 +29,4 @@ export const removeAuthTokens = () => {
 
 export const isAuthenticated = () => {
   return !!Cookies.get('Inspire-token');
-}; 
+};

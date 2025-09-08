@@ -1,4 +1,5 @@
 'use client';
+import FeedbackState from '@/components/UI/FeedbackState';
 import SmallCards from '@/components/cards/SmallCards';
 import Header from '@/components/Dashboard/Header';
 import React from 'react';
@@ -10,10 +11,25 @@ import DownloadIcon from '../../../../public/icons/DownloadIcon';
 import { useMarketOverviewResponseQuery } from '@/redux/DashboardApi';
 
 export default function page() {
-  const { data, isLoading } = useMarketOverviewResponseQuery();
+  const { data, isLoading, isError } = useMarketOverviewResponseQuery();
 
   if (isLoading) {
-    return <h3>Loading Data</h3>;
+    return (
+      <FeedbackState
+        type="loading"
+        title="Loading Market Overview"
+        message="Analyzing trends, prices and gaps across the market."
+      />
+    );
+  }
+  if (isError) {
+    return (
+      <FeedbackState
+        type="error"
+        title="Unable to load Market Overview"
+        message="Please refresh the page to try again."
+      />
+    );
   }
   console.log(data);
   return (

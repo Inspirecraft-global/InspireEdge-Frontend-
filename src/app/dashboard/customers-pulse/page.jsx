@@ -1,4 +1,5 @@
 'use client';
+import FeedbackState from '@/components/UI/FeedbackState';
 import Header from '@/components/Dashboard/Header';
 import React from 'react';
 import dynamic from 'next/dynamic';
@@ -16,9 +17,24 @@ const HeatChart = dynamic(() => import('@/components/Dashboard/HeatChart'), {
 });
 
 export default function page() {
-  const { data, isLoading } = useCustomerResponseQuery();
+  const { data, isLoading, isError } = useCustomerResponseQuery();
   if (isLoading) {
-    return <h2>Loading Data</h2>;
+    return (
+      <FeedbackState
+        type="loading"
+        title="Loading Customers Pulse"
+        message="Surfacing what your customers feel and where to act."
+      />
+    );
+  }
+  if (isError) {
+    return (
+      <FeedbackState
+        type="error"
+        title="Unable to load Customers Pulse"
+        message="Please refresh to try again."
+      />
+    );
   }
   return (
     <div className="flex flex-col gap-7 manrope">

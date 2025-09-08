@@ -1,4 +1,5 @@
 'use client';
+import FeedbackState from '@/components/UI/FeedbackState';
 import CommandCards from '@/components/Dashboard/CommandCards';
 import Header from '@/components/Dashboard/Header';
 import React from 'react';
@@ -7,9 +8,24 @@ import SmartSuggestions from '@/components/Dashboard/SmartSuggestions';
 import { useCustomerEdgeResponseQuery } from '@/redux/DashboardApi';
 
 export default function page() {
-  const { data, isLoading } = useCustomerEdgeResponseQuery();
+  const { data, isLoading, isError } = useCustomerEdgeResponseQuery();
   if (isLoading) {
-    return <h2>Loading Data</h2>;
+    return (
+      <FeedbackState
+        type="loading"
+        title="Loading Command Edge"
+        message="We’re preparing recommended actions for your store."
+      />
+    );
+  }
+  if (isError) {
+    return (
+      <FeedbackState
+        type="error"
+        title="Unable to load Command Edge"
+        message="Please retry in a moment."
+      />
+    );
   }
   return (
     <div className="flex flex-col gap-7 manrope">

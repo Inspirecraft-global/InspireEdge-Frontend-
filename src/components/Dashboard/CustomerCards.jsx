@@ -25,7 +25,7 @@ export default function CustomerCards({ data }) {
         icon={<CustomerActionsIcon />}
         textColor={'text-white'}
         backgroundColor={'bg-black-200'}
-        price={data?.overview?.competitorsTracked}
+        price={data?.overview?.competitorsTracked || 0}
         topic={'Competitor’s Actions'}
       />
       <SmallCards

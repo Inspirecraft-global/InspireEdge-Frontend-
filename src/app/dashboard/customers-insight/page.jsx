@@ -1,4 +1,5 @@
 'use client';
+import FeedbackState from '@/components/UI/FeedbackState';
 import SmallCards from '@/components/cards/SmallCards';
 import Header from '@/components/Dashboard/Header';
 import React from 'react';
@@ -15,9 +16,24 @@ import {
 } from '@/redux/DashboardApi';
 
 export default function page() {
-  const { data, isLoading } = useComepetitorsResponseQuery();
+  const { data, isLoading, isError } = useComepetitorsResponseQuery();
   if (isLoading) {
-    return <h2>Loading Data</h2>;
+    return (
+      <FeedbackState
+        type="loading"
+        title="Loading Competitor Insights"
+        message="Crunching data to reveal what your competitors are doing."
+      />
+    );
+  }
+  if (isError) {
+    return (
+      <FeedbackState
+        type="error"
+        title="Unable to load Competitor Insights"
+        message="Please refresh to try again."
+      />
+    );
   }
   return (
     <div className="flex flex-col gap-7 manrope">

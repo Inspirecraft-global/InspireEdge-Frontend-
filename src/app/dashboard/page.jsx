@@ -1,4 +1,5 @@
 'use client';
+import FeedbackState from '@/components/UI/FeedbackState';
 import React, { useEffect, useState } from 'react';
 import ArrowUp from '../../../public/icons/ArrowUp';
 import ArrowDown from '../../../public/icons/ArrowDown';
@@ -44,9 +45,21 @@ export default function Dashboard() {
     }
   }, [data]);
   if (isLoading) {
-    return <h3>Loading Data</h3>;
+    return (
+      <FeedbackState
+        type="loading"
+        title="Loading your dashboard"
+        message="We’re fetching your latest metrics and insights."
+      />
+    );
   } else if (isError) {
-    return <h3>No Data</h3>;
+    return (
+      <FeedbackState
+        type="error"
+        title="Dashboard failed to load"
+        message="Please refresh the page or try again in a moment."
+      />
+    );
   }
   return (
     <div className="flex flex-col gap-7 manrope">
