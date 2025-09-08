@@ -4,6 +4,7 @@ import SmallCards from '../cards/SmallCards';
 import Graph from '../../../public/icons/Graph';
 import HandClick from '../../../public/icons/HandClick';
 import WarningIcon from '../../../public/icons/WarningIcon';
+import { DollarIcons, ModulusIcons, StarIcons } from '@/assets/Icons';
 
 const CardData = [
   {
@@ -34,25 +35,74 @@ const CardData = [
   },
 ];
 
-export default function CommandCards() {
+export default function CommandCards({ data }) {
   const [status, setStatus] = useState(false);
   const [show, setShow] = useState(false);
 
   return (
     <div className="flex w-full flex-col md:flex-row gap-5">
-      {CardData.map((item) => (
-        <SmallCards
-          status={status}
-          icon={item.icon}
-          key={item.id}
-          textColor={item.textColor}
-          backgroundColor={item.bgColor}
-          price={item.price}
-          topic={item.topic}
-          percentage={item.percentage}
-          show={show}
-        />
-      ))}
+      {/*  <SmallCards
+        status={status}
+        icon={<StarIcons />}
+        textColor={'text-black-100'}
+        backgroundColor={'bg-lemon-200'}
+        price={item.price}
+        topic={'item.topic'}
+        percentage={item.percentage}
+        show={show}
+        {data?.summaryCards?.totalActionsSuggested?.count}
+      /> */}
+      <div className="bg-lemon-200 w-full  rounded-xl flex justify-between px-5 py-4">
+        <div className="text-black-100 ">
+          <h3 className="text-black-100">Total actions suggested</h3>
+          <h3 className="text-3xl font-medium flex mt-3 gap-2 items-baseline">
+            {data?.commandOverview?.summaryCards?.totalActionsSuggested?.count}
+            <p className="text-base">
+              {' '}
+              {
+                data?.commandOverview?.summaryCards?.totalActionsSuggested
+                  ?.period
+              }
+            </p>
+          </h3>
+        </div>
+        <StarIcons />
+      </div>
+      <div className="bg-black-200 w-full  rounded-xl flex justify-between px-5 py-4">
+        <div className="text-white ">
+          <h3 className="text-white">Most Active Modules</h3>
+          <h3 className="text-sm font-medium flex flex-wrap mt-3 gap-2 items-baseline">
+            {data?.commandOverview?.summaryCards?.mostActiveModules?.modules?.map(
+              (item, index) => (
+                <p
+                  key={index}
+                  className="text-sm border-1 border-[#FFFFFF1A] rounded-full px-2"
+                >
+                  {item}
+                </p>
+              )
+            )}
+          </h3>
+        </div>
+        <ModulusIcons />
+      </div>
+      <div className="bg-lemon-400 w-full  rounded-xl flex justify-between px-5 py-4">
+        <div className="text-black-100 ">
+          <h3 className="text-black-100">Estimated Revenue Impact</h3>
+          <h3 className="text-3xl font-medium grid grid-cols-2 mt-3 gap-2 items-baseline">
+            {
+              data?.commandOverview?.summaryCards?.estimatedRevenueImpact
+                ?.prefix
+            }
+            {data?.commandOverview?.summaryCards?.estimatedRevenueImpact?.icon}
+            {
+              data?.commandOverview?.summaryCards?.estimatedRevenueImpact
+                ?.amount
+            }
+          </h3>
+        </div>
+        <DollarIcons />
+      </div>
     </div>
   );
 }

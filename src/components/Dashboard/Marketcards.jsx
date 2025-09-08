@@ -5,42 +5,32 @@ import Graph from '../../../public/icons/Graph';
 import HandClick from '../../../public/icons/HandClick';
 import WarningIcon from '../../../public/icons/WarningIcon';
 
-const CardData = [
-  {
-    id: '1',
-    textColor: 'text-black-100',
-    bgColor: 'bg-lemon-200',
-    icon: <Graph />,
-    topic: 'Sales Velocity',
-    percentage: '28%',
-    price: '28%',
-  },
-  {
-    id: '2',
-    textColor: 'text-white',
-    bgColor: 'bg-black-200',
-    icon: <HandClick />,
-    topic: 'Click-through Rate',
-    percentage: '28%',
-    price: '700',
-  },
-  {
-    id: '3',
-    textColor: 'text-black-100',
-    bgColor: 'bg-lemon-400',
-    icon: <WarningIcon />,
-    topic: 'Stock-out risk level',
-    percentage: '28%',
-    price: '$ 7000',
-  },
-];
-
 export default function Marketcards({ data }) {
   const [status, setStatus] = useState(true);
+  const [cartStatus, setCartStatus] = useState(true);
+  const [recStatus, setRecStatus] = useState(true);
+
   const [show, setShow] = useState(true);
 
   useEffect(() => {
-    if (data?.salesVelocity?.trend === 'up') {
+    if (data?.salesVelocity?.trend === 'up' || 'stable') {
+      setCartStatus(true);
+      console.log(cartStatus);
+    } else {
+      setCartStatus(false);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (data?.stockRisk?.trend === 'up') {
+      setRecStatus(true);
+    } else {
+      setRecStatus(false);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (data?.clickThroughRate?.trend === 'up') {
       setStatus(true);
     } else {
       setStatus(false);
@@ -49,7 +39,7 @@ export default function Marketcards({ data }) {
   return (
     <div className="flex w-full flex-col md:flex-row gap-5">
       <SmallCards
-        status={status}
+        status={cartStatus}
         icon={<Graph />}
         textColor={'text-black-100'}
         backgroundColor={'bg-lemon-200'}
@@ -57,6 +47,7 @@ export default function Marketcards({ data }) {
         topic={'Sales Velocity'}
         percentage={data?.salesVelocity?.change}
         show={show}
+        dateupdated={data?.salesVelocity?.changeText}
       />
       <SmallCards
         status={status}
@@ -67,6 +58,7 @@ export default function Marketcards({ data }) {
         topic={'Click-through Rate'}
         percentage={data?.clickThroughRate?.change}
         show={show}
+        dateupdated={data?.clickThroughRate?.comparison}
       />
       <SmallCards
         status={status}
@@ -77,6 +69,7 @@ export default function Marketcards({ data }) {
         topic={'Stock-out risk level'}
         percentage={data?.stockRisk?.percentage || 0}
         show={show}
+        dateupdated={data?.stockRisk?.timeframe}
       />
     </div>
   );

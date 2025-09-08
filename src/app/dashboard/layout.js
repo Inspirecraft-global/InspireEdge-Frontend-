@@ -10,7 +10,6 @@ export default function DashboardLayout({ children }) {
   const toggleSidebar = () => setCollapsed(!collapsed);
   const toggleMobileSidebar = () => setMobileSidebarOpen(!mobileSidebarOpen);
 
-  // Close mobile sidebar on window resize to desktop
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 768 && mobileSidebarOpen) {
@@ -22,7 +21,6 @@ export default function DashboardLayout({ children }) {
     return () => window.removeEventListener('resize', handleResize);
   }, [mobileSidebarOpen]);
 
-  // Lock body scroll when mobile sidebar is open
   useEffect(() => {
     if (mobileSidebarOpen) {
       document.body.style.overflow = 'hidden';
@@ -37,7 +35,6 @@ export default function DashboardLayout({ children }) {
 
   return (
     <div className="flex min-h-screen bg-gray-50 dashboard-container">
-      {/* Mobile Sidebar Overlay */}
       {mobileSidebarOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden transition-opacity duration-300"
@@ -64,8 +61,6 @@ export default function DashboardLayout({ children }) {
           toggleMobileSidebar={toggleMobileSidebar}
         />
       </div>
-
-      {/* Main Content */}
       <main
         className={`flex-1 transition-all duration-300 ease-in-out w-full
         ${collapsed ? 'md:ml-17' : 'md:ml-[270px]'}

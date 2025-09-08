@@ -15,7 +15,7 @@ body {
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
   }
-  
+
   /* Prevent horizontal scroll on mobile */
   .dashboard-container {
     overflow-x: hidden;
@@ -25,6 +25,9 @@ body {
 .bd {
   border: 0.3px solid;
   border: linear-gradient(180deg, #2f2f37 27.85%, rgba(47, 47, 55, 0) 100%);
+}
+.bar {
+  scrollbar-width: none;
 }
 
 @theme {

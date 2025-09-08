@@ -13,23 +13,40 @@ import Header from '@/components/Dashboard/Header';
 import { useOverViewResponseQuery } from '@/redux/DashboardApi';
 
 export default function Dashboard() {
-  const [status, setStatus] = useState(false);
+  const [status, setStatus] = useState(true);
+  const [cartStatus, setCartStatus] = useState(true);
+  const [recStatus, setRecStatus] = useState(true);
   const [show, setShow] = useState(true);
-  const { data, isLoading } = useOverViewResponseQuery();
-  const originalPrice = 20000;
-  const price = 3000;
+  const { data, isLoading, isError } = useOverViewResponseQuery();
+  const name = ' Lola';
 
   useEffect(() => {
-    const threshold = originalPrice * 0.2;
-    if (price < threshold) {
+    if (data?.overview?.summary?.currentRecoveryRate?.trend === 'up') {
+      setCartStatus(true);
+    } else {
+      setCartStatus(false);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (data?.overview?.summary?.abandonedCarts?.trend === 'up') {
       setStatus(true);
     } else {
       setStatus(false);
     }
-  }, [price, originalPrice]);
-  const name = 'john';
+  }, [data]);
+
+  useEffect(() => {
+    if (data?.overview?.summary?.recoverableRevenue?.trend === 'up') {
+      setRecStatus(true);
+    } else {
+      setRecStatus(false);
+    }
+  }, [data]);
   if (isLoading) {
     return <h3>Loading Data</h3>;
+  } else if (isError) {
+    return <h3>No Data</h3>;
   }
   return (
     <div className="flex flex-col gap-7 manrope">
@@ -39,13 +56,13 @@ export default function Dashboard() {
       />
       <div className="flex w-full flex-col md:flex-row gap-5">
         <SmallCards
-          status={status}
+          status={cartStatus}
           icon={<Graph />}
           textColor={'text-black-100'}
           backgroundColor={'bg-lemon-200'}
           price={data?.overview?.summary?.currentRecoveryRate?.value + '%'}
           topic={'Current Recovery rate'}
-          percentage={'2'}
+          percentage={data?.overview?.summary?.currentRecoveryRate?.change}
           show={show}
           change={data?.overview?.summary?.currentRecoveryRate?.change}
         />
@@ -55,20 +72,20 @@ export default function Dashboard() {
           textColor={'text-white'}
           backgroundColor={'bg-black-200'}
           price={data?.overview?.summary?.abandonedCarts?.value + '%'}
-          topic={'Current Recovery rate'}
-          percentage={'2'}
+          topic={'Abandoned Carts'}
+          percentage={data?.overview?.summary?.abandonedCarts?.change}
           change={data?.overview?.summary?.abandonedCarts?.change}
           show={show}
         />
         <SmallCards
-          status={status}
+          status={recStatus}
           icon={<WalletIcon />}
           textColor={'text-black-100'}
           backgroundColor={'bg-lemon-400'}
           price={data?.overview?.summary?.recoverableRevenue?.value + '%'}
-          topic={'Current Recovery rate'}
+          topic={'Recoverable Revenue'}
           change={data?.overview?.summary?.recoverableRevenue?.change}
-          percentage={'2'}
+          percentage={data?.overview?.summary?.recoverableRevenue?.change}
           show={show}
         />
       </div>

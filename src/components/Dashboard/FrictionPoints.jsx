@@ -1,33 +1,5 @@
 'use client';
 import React from 'react';
-import ContentCards from '../cards/ContentCards';
-
-const data = [
-  {
-    sku: 'Competitor Alpha',
-    price: '20 % off holiday salees',
-    threatLevel: 'Low',
-    suggestedAction: 'Hold',
-  },
-  {
-    sku: 'Competitor Alpha',
-    price: '20 % off holiday salees',
-    threatLevel: 'Medium',
-    suggestedAction: 'Promote',
-  },
-  {
-    sku: 'Competitor Alpha',
-    price: '20 % off holiday salees',
-    threatLevel: 'High',
-    suggestedAction: 'Adjust Price',
-  },
-  {
-    sku: 'Competitor Alpha',
-    price: '20 % off holiday salees',
-    threatLevel: 'Low',
-    suggestedAction: 'Hold',
-  },
-];
 
 const getThreatColor = (level) => {
   switch (level) {
@@ -41,15 +13,22 @@ const getThreatColor = (level) => {
       return '';
   }
 };
-export default function FrictionPoints() {
+export default function FrictionPoints({ data }) {
+  const issues = data?.frictionPoints?.frictionPoints?.issues || [];
   return (
     <div className="manrope flex flex-col gap-4 w-full max-w-full">
-      <h3 className="text-black-100 font-medium text-xl">
-        Friction Points
-      </h3>
+      <h3 className="text-black-100 font-medium text-xl">Friction Points</h3>
+
+      {issues.length === 0 ? (
+        <div className="flex items-center justify-center h-40 bg-[#F9F9F9] border border-[#F1F1F1] rounded-md">
+          <p className="text-gray-500 text-sm font-medium">
+            No friction points available
+          </p>
+        </div>
+      ) : (
         <table className="min-w-full border rounded-md border-[#F1F1F1] divide-y divide-[#F1F1F1]">
           <thead className="bg-[#F9F9F9] rounded-md">
-            <tr className="rounded-md h-[56px]  ">
+            <tr className="rounded-md h-[56px]">
               <th className="p-5 text-left text-sm font-medium text-black-200">
                 Issue
               </th>
@@ -67,32 +46,35 @@ export default function FrictionPoints() {
               </th>
             </tr>
           </thead>
-          <tbody className="divide-y-1 divide-[#F1F1F1]  bg-white">
-            {data.map((item, idx) => (
-              <tr key={idx} className="bg-white transition">
-                <td className="p-5 font-medium text-black-300">{item.sku}</td>
+          <tbody className="divide-y divide-[#F1F1F1] bg-white">
+            {issues.map((item, idx) => (
+              <tr key={item.id || idx} className="bg-white transition">
+                <td className="p-5 font-medium text-black-300">{item.issue}</td>
                 <td className="p-5 font-medium text-black-300">
-                  Checkout page
+                  {item.location}
                 </td>
-                <td className="p-5 font-medium text-black-300">45%</td>
+                <td className="p-5 font-medium text-black-300">
+                  {item.frequencyPercentage}
+                </td>
                 <td className="p-5 font-medium text-black-300">
                   <span
-                    className={`px-10 py-3 rounded-full text-sm font-medium ${getThreatColor(
-                      item.threatLevel
+                    className={`px-4 py-2 rounded-full text-sm font-medium ${getThreatColor(
+                      item.threatScore
                     )}`}
                   >
-                    {item.threatLevel}
+                    {item.threatScore}
                   </span>
                 </td>
                 <td className="p-5 font-medium text-black-200">
-                  <button className="px-10 py-2 rounded-lg border-[1px] border-lemon-100">
-                    Action
+                  <button className="px-6 py-2 rounded-lg border border-lemon-100">
+                    {item.action}
                   </button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+      )}
     </div>
   );
 }

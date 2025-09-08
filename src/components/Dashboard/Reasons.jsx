@@ -28,8 +28,8 @@ export default function Reasons({ data }) {
           <h3 className="text-base font-medium text-black-100">
             Top abandonment reasons
           </h3>
-          {data?.overview?.topAbandonmentReasons.map((item) => (
-            <div key={item.id} className="flex flex-col gap-1">
+          {data?.overview?.topAbandonmentReasons.map((item, index) => (
+            <div key={index} className="flex flex-col gap-1">
               <div className="flex justify-between text-sm">
                 <h3 className="text-[#00000099]">{item.reason}</h3>
                 <p>{item.percentage}%</p>

@@ -2,8 +2,6 @@
 import SmallCards from '@/components/cards/SmallCards';
 import Header from '@/components/Dashboard/Header';
 import React from 'react';
-import ProductTable from '@/components/Dashboard/ProductTable';
-import SmartAlert from '@/components/Dashboard/SmartAlert';
 import DownloadIcon from '../../../../public/icons/DownloadIcon';
 import CustomerCards from '@/components/Dashboard/CustomerCards';
 import CustomerTable from '@/components/Dashboard/CustomerTable';
@@ -18,11 +16,9 @@ import {
 
 export default function page() {
   const { data, isLoading } = useComepetitorsResponseQuery();
-
   if (isLoading) {
     return <h2>Loading Data</h2>;
   }
-  console.log(data);
   return (
     <div className="flex flex-col gap-7 manrope">
       <div className="flex justify-between items-center flex-col gap-3 md:flex-row ">
@@ -35,7 +31,7 @@ export default function page() {
         </button>
       </div>
       <CustomerCards data={data} />
-      <CustomerTable data={data} />
+      {/*    <CustomerTable data={data} /> */}
       <MarketRader data={data} />
       <YourEdge />
     </div>

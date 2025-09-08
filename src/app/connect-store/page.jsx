@@ -23,7 +23,7 @@ export default function page() {
           <CustomStore />
         </div>
       </div>
-      <p className="w-full px-4 md:px-0 md:w-[567px]  text-gray-200 text-sm text-start mt-6">
+      <p className="w-full px-4 md:px-0 md:w-[567px] text-center  text-gray-200 text-sm  mt-6">
         By connecting your store, you agree to InspireEdge’s{' '}
         <span className="text-lemon-100 underline">
           {' '}

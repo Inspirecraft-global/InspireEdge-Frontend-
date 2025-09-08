@@ -7,8 +7,10 @@ import SmartSuggestions from '@/components/Dashboard/SmartSuggestions';
 import { useCustomerEdgeResponseQuery } from '@/redux/DashboardApi';
 
 export default function page() {
-  const { data } = useCustomerEdgeResponseQuery();
-  console.log(data);
+  const { data, isLoading } = useCustomerEdgeResponseQuery();
+  if (isLoading) {
+    return <h2>Loading Data</h2>;
+  }
   return (
     <div className="flex flex-col gap-7 manrope">
       <div className="flex justify-between items-center flex-col gap-3 md:flex-row ">
@@ -19,8 +21,8 @@ export default function page() {
           }
         />
       </div>
-      <CommandCards />
-      <SmartSuggestions />
+      <CommandCards data={data} />
+      <SmartSuggestions data={data} />
     </div>
   );
 }

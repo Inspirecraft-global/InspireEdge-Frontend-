@@ -17,7 +17,9 @@ const HeatChart = dynamic(() => import('@/components/Dashboard/HeatChart'), {
 
 export default function page() {
   const { data, isLoading } = useCustomerResponseQuery();
-  console.log(data);
+  if (isLoading) {
+    return <h2>Loading Data</h2>;
+  }
   return (
     <div className="flex flex-col gap-7 manrope">
       <div className="flex justify-between items-center flex-col gap-3 md:flex-row ">
@@ -31,18 +33,18 @@ export default function page() {
           Export Report <DownloadIcon />
         </button>
       </div>
-      <InsightCards />
+      <InsightCards data={data} />
       <div className="flex gap-4 flex-col md:flex-row">
         <div className="flex-1">
-          <ActiveChat />
+          <ActiveChat data={data} />
         </div>
-        <div className="flex-1">
+        {/*    <div className="flex-1">
           <HeatChart />
-        </div>
+        </div> */}
       </div>
-      <RecoveryScore />
-      <FrictionPoints />
-      <ProductPerformance />
+      <RecoveryScore data={data} />
+      <FrictionPoints data={data} />
+      <ProductPerformance data={data} />
       <InsightEdge />
     </div>
   );

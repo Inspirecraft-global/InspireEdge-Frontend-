@@ -23,11 +23,11 @@ export default function ShopifyConnection() {
     formState: { errors },
   } = useForm();
 
-  const { data, error, isLoading } = useConnectShopifyQuery(store, {
+  const { data, error, isLoading, refetch } = useConnectShopifyQuery(store, {
     skip: !store,
   });
 
-  const onSubmit = (formData) => {
+  const onSubmit = async (formData) => {
     const shop = formData.store.trim();
     if (!shop.endsWith('.myshopify.com')) {
       setToastType('error');
@@ -39,9 +39,11 @@ export default function ShopifyConnection() {
     }
 
     setStore(shop);
+    await refetch(); 
     setModalOpen(false);
     reset();
   };
+
   useEffect(() => {
     if (data?.installUrl) {
       window.location.href = data.installUrl;
@@ -80,7 +82,7 @@ export default function ShopifyConnection() {
               placeholder="mystore.myshopify.com"
               register={register}
               name="store"
-              validation={shopifyStoreValidation}
+              // validation={shopifyStoreValidation}
               error={errors.store}
               className="bg-gray-100"
             />

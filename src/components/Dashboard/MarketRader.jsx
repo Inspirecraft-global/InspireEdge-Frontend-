@@ -1,13 +1,14 @@
 import React from 'react';
 import ContentCards from '../cards/ContentCards';
 import Thread from '../../../public/icons/Thread';
+import { HighTreadIcons, LowTreadIcons } from '@/assets/Icons';
 
 const renderThreat = (level) => {
   switch (level?.toLowerCase()) {
     case 'high':
-      return 'hello';
+      return <HighTreadIcons />;
     case 'medium':
-      return 'medium';
+      return <LowTreadIcons />;
     case 'low':
       return <Thread />;
     default:

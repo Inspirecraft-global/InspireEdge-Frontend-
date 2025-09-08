@@ -66,7 +66,7 @@ export default function EmailVerification({ email, token }) {
             </h2>
             <p className="text-gray-200 mb-6">{message}</p>
             <a
-              href="/auth/login"
+              href="/login"
               className="inline-flex items-center px-6 py-3 bg-lemon-100 text-black font-medium rounded-lg hover:bg-lemon-200 transition-colors"
             >
               Continue to Login
@@ -111,14 +111,14 @@ export default function EmailVerification({ email, token }) {
             <p className="text-gray-200 mb-6">{message}</p>
             <div className="space-y-3">
               <a
-                href="/auth/login"
+                href="/login"
                 className="inline-flex items-center px-6 py-3 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 transition-colors"
               >
                 Go to Login
               </a>
               <br />
               <a
-                href="/auth/signup"
+                href="/signup"
                 className="inline-flex items-center px-6 py-3 border border-white text-white font-medium rounded-lg hover:bg-white hover:text-black transition-colors"
               >
                 Try Signing Up Again

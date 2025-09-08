@@ -34,15 +34,17 @@ export default function MagnetoConnection() {
         storeUrl: formData.storeUrl,
         username: formData.username,
         password: formData.password,
+        accessToken: formData.accessToken,
       };
       await connectStore(payload).unwrap();
       setToastType('success');
       setToastMessage('Magento store connected successfully!');
       setShowToast(true);
-      reset();
       setModalOpen(false);
+      navigate('/storeaudit');
     } catch (err) {
-      console.error(err);
+      const error = err.data;
+      console.error(err0r);
       setToastType('error');
       setToastMessage(
         'Failed to connect store. Please check your credentials.'
@@ -54,7 +56,7 @@ export default function MagnetoConnection() {
   };
 
   return (
-    <div>
+    <div className="">
       <AlertToast
         open={showToast}
         onClose={() => setShowToast(false)}
@@ -65,7 +67,7 @@ export default function MagnetoConnection() {
       <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col items-center gap-6 w-full max-w-md p-2"
+          className="flex bar flex-col max-h-[400px] overflow-y-scroll  items-center gap-6 w-full max-w-md p-2"
         >
           <h2 className="text-black font-semibold text-2xl text-center mt-2">
             Connect Magento Store
@@ -91,6 +93,16 @@ export default function MagnetoConnection() {
               placeholder="https://mystore.com"
               register={register}
               name="username"
+              // validation={magentoStoreUrlValidation}
+              // error={errors.storeUrl}
+              className="bg-gray-100"
+            />
+            <InputField
+              label="Consumer key"
+              type="accessToken"
+              placeholder="https://mystore.com"
+              register={register}
+              name="accessToken"
               // validation={magentoStoreUrlValidation}
               // error={errors.storeUrl}
               className="bg-gray-100"

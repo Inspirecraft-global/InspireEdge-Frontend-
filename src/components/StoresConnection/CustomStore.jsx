@@ -65,7 +65,7 @@ export default function CustomStore() {
       <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col items-center gap-6 w-full max-w-md p-2"
+          className="flex flex-col bar max-h-[400px] overflow-y-scroll items-center gap-6 w-full max-w-md p-2"
         >
           <h2 className="text-black font-semibold text-2xl text-center mt-2">
             Connect Custom Store

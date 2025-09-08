@@ -4,6 +4,7 @@ import ContentCards from '../cards/ContentCards';
 import Shopify from '../../../public/icons/Shopify';
 import WooIcon from '../../../public/icons/WooIcon';
 import MagnetoIcon from '../../../public/icons/MagnetoIcon';
+import Link from 'next/link';
 
 export default function ConnectStore({ data }) {
   // detect if store already exists
@@ -41,12 +42,13 @@ export default function ConnectStore({ data }) {
                   </button>
                 </div>
               ) : (
-                <button
+                <Link
+                  href={'connect-store'}
                   onClick={() => setConnected(true)}
                   className="text-black-100  cursor-pointer font-medium text-sm bg-lemon-100 py-3 rounded-lg"
                 >
                   Connect Store
-                </button>
+                </Link>
               )}
             </div>
           </ContentCards>
@@ -71,12 +73,13 @@ export default function ConnectStore({ data }) {
                   </button>
                 </div>
               ) : (
-                <button
+                <Link
+                  href={'connect-store'}
                   onClick={() => setConnected(true)}
-                  className="text-black-100 cursor-pointer py-3 font-medium text-sm bg-lemon-100  rounded-lg"
+                  className="text-black-100 text-center cursor-pointer py-3 font-medium text-sm bg-lemon-100  rounded-lg"
                 >
                   Connect Store
-                </button>
+                </Link>
               )}
             </div>
           </ContentCards>
@@ -100,12 +103,13 @@ export default function ConnectStore({ data }) {
                   </button>
                 </div>
               ) : (
-                <button
+                <Link
+                  href={'connect-store'}
                   onClick={() => setConnected(true)}
-                  className="text-black-100 cursor-pointer font-medium text-sm bg-lemon-100 py-2 rounded-lg"
+                  className="text-black-100 cursor-pointer text-center font-medium text-sm bg-lemon-100 py-2 rounded-lg"
                 >
                   Connect Store
-                </button>
+                </Link>
               )}
             </div>
           </ContentCards>

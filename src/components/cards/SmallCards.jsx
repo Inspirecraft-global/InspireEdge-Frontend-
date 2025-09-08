@@ -12,6 +12,7 @@ export default function SmallCards({
   show,
   percentage,
   change,
+  dateupdated,
 }) {
   return (
     <div
@@ -23,14 +24,14 @@ export default function SmallCards({
         <div className="mt-3 text-xs flex items-center gap-2">
           {show ? (
             <>
-              {status ? <ArrowDown /> : <ArrowUp />}
+              {status ? <ArrowUp /> : <ArrowDown />}
               <h3 className=" flex gap-1">
                 <span
-                  className={`${status ? 'text-red-100' : 'text-green-100'}  `}
+                  className={`${status ? 'text-green-100' : 'text-red-100'}  `}
                 >
                   {percentage}%
                 </span>
-                Since last week
+                {dateupdated || 'Since last week'}
               </h3>
             </>
           ) : (
