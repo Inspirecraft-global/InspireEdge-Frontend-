@@ -1,6 +1,6 @@
 import { fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import Cookies from 'js-cookie';
-import API_BASE_URL from '../constant/Api';
+import API_BASE_URL from '../config/Api';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: API_BASE_URL,
