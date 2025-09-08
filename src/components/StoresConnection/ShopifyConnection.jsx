@@ -8,6 +8,8 @@ import { useConnectShopifyQuery } from '@/redux/DashboardApi';
 import { InputField } from '@/components/form';
 import { shopifyStoreValidation } from '@/components/form/validation';
 import AlertToast from '@/components/common/AlertToast';
+import Cookies from 'js-cookie';
+import API_BASE_URL from '@/config/Api';
 
 export default function ShopifyConnection() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -38,21 +40,23 @@ export default function ShopifyConnection() {
       return;
     }
 
-    setStore(shop);
-    await refetch(); 
+    // Get token for direct navigation
+    const token = Cookies.get('Inspire-token');
+    if (!token) {
+      setToastType('error');
+      setToastMessage('Please log in to connect your store.');
+      setShowToast(true);
+      return;
+    }
+
+    // Direct navigation to backend 
+    const connectUrl = `${API_BASE_URL}/store/shopify/connect?shop=${shop}&token=${token}`;
+    window.location.href = connectUrl;
+    
     setModalOpen(false);
     reset();
   };
 
-  useEffect(() => {
-    if (data?.installUrl) {
-      window.location.href = data.installUrl;
-    } else if (store && error) {
-      setToastType('error');
-      setToastMessage('Failed to connect Shopify store.');
-      setShowToast(true);
-    }
-  }, [data, error, store]);
 
   return (
     <div>

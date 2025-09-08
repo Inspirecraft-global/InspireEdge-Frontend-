@@ -37,8 +37,8 @@ export default function SignInForm() {
       setToastType('success');
       setToastMessage('Login successful! Redirecting to dashboard...');
       setShowToast(true);
-      if (response.token) {
-        setAuthTokens(response.token);
+      if (response.token || response.access) {
+        setAuthTokens(response.token || response.access, response.refresh);
       }
       if (response.isStoreConnected) {
         router.push('/dashboard');
