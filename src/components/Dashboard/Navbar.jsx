@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import SideClose from '../../../public/icons/SideClose';
 import MenuIcon from '../../../public/icons/MenuIcon';
 import SearchIcon from '../../../public/icons/SearchIcon';
@@ -18,7 +18,9 @@ import SettingsIcon from '../../../public/icons/SettingsIcon';
 
 import Image from 'next/image';
 import ArrowDownIcon from '../../../public/icons/ArrowDownIcon';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
+import { logout } from '@/redux/authSlice';
 
 const navItems = [
   { name: 'Overview', path: '/dashboard', icon: <HomeIcon /> },
@@ -49,7 +51,11 @@ const navItems = [
 
 export default function Navbar({ toggleSidebar, toggleMobileSidebar }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [userDropdownOpen, setUserDropdownOpen] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const dropdownRef = useRef(null);
 
   const openSidebar = () => {
     setSidebarOpen(true);
@@ -58,6 +64,27 @@ export default function Navbar({ toggleSidebar, toggleMobileSidebar }) {
   const closeSidebar = () => {
     setSidebarOpen(false);
   };
+
+  const handleLogout = () => {
+    dispatch(logout());
+    router.push('/login');
+  };
+
+  const toggleUserDropdown = () => {
+    setUserDropdownOpen(!userDropdownOpen);
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setUserDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   return (
     <>
@@ -101,13 +128,32 @@ export default function Navbar({ toggleSidebar, toggleMobileSidebar }) {
             <Notification />
           </button>
 
-          <div className="flex items-center gap-2 p-2 rounded-lg transition-colors cursor-pointer">
-            <Image
-              src={user}
-              alt="User profile"
-              className="w-8 h-8 md:w-10 md:h-10 rounded-full object-cover"
-            />
-            <ArrowDownIcon />
+          <div className="relative" ref={dropdownRef}>
+            <div 
+              className="flex items-center gap-2 p-2 rounded-lg transition-colors cursor-pointer hover:bg-gray-100"
+              onClick={toggleUserDropdown}
+            >
+              <Image
+                src={user}
+                alt="User profile"
+                className="w-8 h-8 md:w-10 md:h-10 rounded-full object-cover"
+              />
+              <ArrowDownIcon />
+            </div>
+            
+            {/* User Dropdown */}
+            {userDropdownOpen && (
+              <div className="absolute right-0 top-full mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+                <div className="py-2">
+                  <button
+                    onClick={handleLogout}
+                    className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+                  >
+                    Logout
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
