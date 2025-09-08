@@ -4,6 +4,7 @@ import SmallCards from '../cards/SmallCards';
 import Graph from '../../../public/icons/Graph';
 import HandClick from '../../../public/icons/HandClick';
 import WarningIcon from '../../../public/icons/WarningIcon';
+import { CustomerActionsIcon, HighTreadIcons } from '@/assets/Icons';
 
 export default function CustomerCards({ data }) {
   const [status, setStatus] = useState(false);
@@ -13,7 +14,7 @@ export default function CustomerCards({ data }) {
     <div className="flex w-full flex-col md:flex-row gap-5">
       <SmallCards
         status={status}
-        icon={<Graph />}
+        icon={<HighTreadIcons />}
         textColor={'text-black-100'}
         backgroundColor={'bg-lemon-200'}
         price={data?.overview?.activeThreats}
@@ -21,7 +22,7 @@ export default function CustomerCards({ data }) {
       />
       <SmallCards
         status={status}
-        icon={<HandClick />}
+        icon={<CustomerActionsIcon />}
         textColor={'text-white'}
         backgroundColor={'bg-black-200'}
         price={data?.overview?.competitorsTracked}

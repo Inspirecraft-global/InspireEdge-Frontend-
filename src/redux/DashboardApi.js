@@ -17,7 +17,9 @@ export const DashboardApi = createApi({
   endpoints: (builder) => ({
     connectShopify: builder.query({
       query: (store) => ({
-        url: `/store/shopify/connect?shop=${store}`,
+        url: `/store/shopify/connect?shop=${store}&token=${Cookies.get(
+          'Inspire-token'
+        )}`,
         method: 'GET',
       }),
     }),

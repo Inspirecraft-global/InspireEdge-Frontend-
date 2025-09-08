@@ -261,3 +261,31 @@ export function HighTreadIcons() {
     </svg>
   );
 }
+
+export function CustomerActionsIcon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="41"
+      height="40"
+      viewBox="0 0 41 40"
+      fill="none"
+    >
+      <rect
+        x="0.664062"
+        width="40"
+        height="40"
+        rx="20"
+        fill="#467032"
+        fillOpacity="0.4"
+      />
+      <path
+        d="M11.6641 20H15.6641L18.6641 28L22.6641 12L25.6641 20H29.6641"
+        stroke="white"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
