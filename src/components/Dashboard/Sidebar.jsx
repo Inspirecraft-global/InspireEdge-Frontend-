@@ -36,7 +36,7 @@ const navItems = [
   },
   { name: 'Integration', path: '/integration', icon: <IntegrationIcon /> },
   { name: 'Teams and Roles', path: '/teams', icon: <UserIcon /> },
-  { name: 'Settings', path: '/settings', icon: <SettingsIcon /> },
+  { name: 'Settings', path: '/dashboard/settings', icon: <SettingsIcon /> },
 ];
 
 export default function Sidebar({
@@ -55,7 +55,7 @@ export default function Sidebar({
   }, [pathname, mobileSidebarOpen, toggleMobileSidebar]);
 
   return (
-    <div className="manrope w-full h-full">
+    <div className="font-manrope w-full h-full">
       <div
         className={`h-full flex flex-col top-0 left-0 bg-white border-r-[1px] border-gray-300 z-50
           transition-all duration-300 ease-in-out 

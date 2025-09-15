@@ -1,5 +1,6 @@
 'use client';
 import FeedbackState from '@/components/UI/FeedbackState';
+import NoResources from '@/components/UI/NoResources';
 import SmallCards from '@/components/cards/SmallCards';
 import Header from '@/components/Dashboard/Header';
 import React from 'react';
@@ -34,6 +35,10 @@ export default function page() {
         message="Please refresh to try again."
       />
     );
+  }
+  const isEmpty = !data || (typeof data === 'object' && Object.keys(data || {}).length === 0);
+  if (isEmpty) {
+    return <NoResources title="No competitor insights to display" />;
   }
   return (
     <div className="flex flex-col gap-7 manrope">

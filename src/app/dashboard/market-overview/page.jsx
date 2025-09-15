@@ -1,5 +1,6 @@
 'use client';
 import FeedbackState from '@/components/UI/FeedbackState';
+import NoResources from '@/components/UI/NoResources';
 import SmallCards from '@/components/cards/SmallCards';
 import Header from '@/components/Dashboard/Header';
 import React from 'react';
@@ -31,7 +32,6 @@ export default function page() {
       />
     );
   }
-  console.log(data);
   return (
     <div className="flex flex-col gap-7 manrope">
       <div className="flex justify-between items-center flex-col gap-3 md:flex-row ">

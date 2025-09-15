@@ -71,11 +71,7 @@ export default function MarketOverview({ data }) {
                     x2="0"
                     y2="1"
                   >
-                    <stop
-                      offset="5%"
-                      stopColor={dataset.color}
-                      stopOpacity={0.8}
-                    />
+                    <stop offset="5%" stopColor={'#a9c711'} stopOpacity={0.8} />
                     <stop
                       offset="95%"
                       stopColor={dataset.color}

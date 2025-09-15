@@ -9,9 +9,11 @@ export const DashboardApi = createApi({
     connectShopify: builder.query({
       query: (store) => {
         const token = Cookies.get('Inspire-token');
-        
+
         return {
-          url: `/store/shopify/connect?shop=${store}${token ? `&token=${token}` : ''}`,
+          url: `/store/shopify/connect?shop=${store}${
+            token ? `&token=${token}` : ''
+          }`,
           method: 'GET',
         };
       },
@@ -114,6 +116,38 @@ export const DashboardApi = createApi({
         method: 'GET',
       }),
     }),
+    settingsEdge: builder.query({
+      query: () => ({
+        url: '/settings/overview',
+        method: 'GET',
+      }),
+    }),
+    profileSetting: builder.query({
+      query: () => ({
+        url: '/settings/profile',
+        method: 'GET',
+      }),
+    }),
+    storeSetting: builder.query({
+      query: () => ({
+        url: '/settings/store-connection',
+        method: 'GET',
+      }),
+    }),
+    updatePassword: builder.mutation({
+      query: (body) => ({
+        url: '/settings/password-security/password',
+        method: 'PUT',
+        body,
+      }),
+    }),
+    deleteAccount: builder.mutation({
+      query: (body) => ({
+        url: '/settings/account/delete',
+        method: 'DELETE',
+        body,
+      }),
+    }),
   }),
 });
 export const {
@@ -121,6 +155,7 @@ export const {
   useConnectWooMutation,
   useGetStoreConnectedQuery,
   useShopAuditQuery,
+  useSettingsEdgeQuery,
   useConnectMagnetoMutation,
   useCustomerEdgeResponseQuery,
   useShopPerformanceQuery,
@@ -130,8 +165,12 @@ export const {
   useUnderPerformanceQuery,
   useReviewInsightAuditQuery,
   usePriceBenchMarkingAuditsQuery,
+  useUpdatePasswordMutation,
   useOverViewResponseQuery,
   useCustomerResponseQuery,
   useComepetitorsResponseQuery,
   useCommandEdgeQuery,
+  useDeleteAccountMutation,
+  useStoreSettingQuery,
+  useProfileSettingQuery,
 } = DashboardApi;

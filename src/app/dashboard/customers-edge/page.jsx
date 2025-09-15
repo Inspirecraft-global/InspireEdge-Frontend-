@@ -1,5 +1,6 @@
 'use client';
 import FeedbackState from '@/components/UI/FeedbackState';
+import NoResources from '@/components/UI/NoResources';
 import CommandCards from '@/components/Dashboard/CommandCards';
 import Header from '@/components/Dashboard/Header';
 import React from 'react';
@@ -26,6 +27,10 @@ export default function page() {
         message="Please retry in a moment."
       />
     );
+  }
+  const isEmpty = !data || (typeof data === 'object' && Object.keys(data || {}).length === 0);
+  if (isEmpty) {
+    return <NoResources title="No Command Edge data available" />;
   }
   return (
     <div className="flex flex-col gap-7 manrope">

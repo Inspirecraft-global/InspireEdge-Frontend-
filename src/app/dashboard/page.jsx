@@ -1,5 +1,6 @@
 'use client';
 import FeedbackState from '@/components/UI/FeedbackState';
+import NoResources from '@/components/UI/NoResources';
 import React, { useEffect, useState } from 'react';
 import ArrowUp from '../../../public/icons/ArrowUp';
 import ArrowDown from '../../../public/icons/ArrowDown';
@@ -60,6 +61,10 @@ export default function Dashboard() {
         message="Please refresh the page or try again in a moment."
       />
     );
+  }
+  const isEmpty = !data || (typeof data === 'object' && Object.keys(data || {}).length === 0);
+  if (isEmpty) {
+    return <NoResources title="No dashboard data available yet" />;
   }
   return (
     <div className="flex flex-col gap-7 manrope">

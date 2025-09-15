@@ -1,10 +1,22 @@
 import Navbar from '@/components/Home/Navbar';
 import './globals.css';
 import Providers from '@/components/Providers';
+import { Manrope, Work_Sans } from 'next/font/google';
 
 export const viewport = {
   themeColor: '#0f172a',
 };
+
+const manrope = Manrope({
+  subsets: ['latin'],
+  variable: '--font-manrope',
+  display: 'swap',
+});
+const work_Sans = Work_Sans({
+  subsets: ['latin'],
+  variable: '--font-work-sans',
+  display: 'swap',
+});
 
 export const metadata = {
   title: 'InspireEdge AI - Smart eCommerce Growth & Cart Recovery',
@@ -85,7 +97,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${manrope.className} ${work_Sans.className}`}>
       <body>
         <Providers>{children}</Providers>
       </body>

@@ -1,5 +1,6 @@
 'use client';
 import FeedbackState from '@/components/UI/FeedbackState';
+import NoResources from '@/components/UI/NoResources';
 import Header from '@/components/Dashboard/Header';
 import React from 'react';
 import dynamic from 'next/dynamic';
@@ -35,6 +36,10 @@ export default function page() {
         message="Please refresh to try again."
       />
     );
+  }
+  const isEmpty = !data || (typeof data === 'object' && Object.keys(data || {}).length === 0);
+  if (isEmpty) {
+    return <NoResources title="No customer pulse available yet" />;
   }
   return (
     <div className="flex flex-col gap-7 manrope">

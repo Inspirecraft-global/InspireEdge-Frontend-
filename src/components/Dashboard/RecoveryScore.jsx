@@ -1,5 +1,6 @@
 import React from 'react';
 import ContentCards from '../cards/ContentCards';
+import NoResources from '../UI/NoResources';
 
 export default function RecoveryScore({ data }) {
   return (
@@ -118,7 +119,7 @@ export default function RecoveryScore({ data }) {
             </div>
           </div>
         ) : (
-          'No Reviews Yet'
+          <NoResources title="No Resource Found" />
         )}
       </ContentCards>
     </div>

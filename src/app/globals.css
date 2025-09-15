@@ -83,6 +83,9 @@ body {
 .space {
   font-family: 'Space Grotesk', sans-serif;
 }
+.settingcard {
+  background: linear-gradient(90.61deg, #dcfc36 29.35%, #f2feb4 102.46%);
+}
 .pat {
   height: 400px;
   background-image: url('../../public/images/pattern.png');
