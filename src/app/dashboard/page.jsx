@@ -2,8 +2,6 @@
 import FeedbackState from '@/components/UI/FeedbackState';
 import NoResources from '@/components/UI/NoResources';
 import React, { useEffect, useState } from 'react';
-import ArrowUp from '../../../public/icons/ArrowUp';
-import ArrowDown from '../../../public/icons/ArrowDown';
 import Graph from '../../../public/icons/Graph';
 import SmallCards from '@/components/cards/SmallCards';
 import WalletIcon from '../../../public/icons/WalletIcon';

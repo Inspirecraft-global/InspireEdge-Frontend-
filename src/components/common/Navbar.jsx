@@ -1,7 +1,6 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
 import SideClose from '../../../public/icons/SideClose';
-import MenuIcon from '../../../public/icons/MenuIcon';
 import SearchIcon from '../../../public/icons/SearchIcon';
 import Notification from '../../../public/icons/Notification';
 import user from '../../../public/images/user.jpg';
@@ -15,7 +14,6 @@ import CommandEdgeIcon from '../../../public/icons/CommandEdgeIcon';
 import IntegrationIcon from '../../../public/icons/IntegrationIcon';
 import UserIcon from '../../../public/icons/UserIcon';
 import SettingsIcon from '../../../public/icons/SettingsIcon';
-
 import Image from 'next/image';
 import ArrowDownIcon from '../../../public/icons/ArrowDownIcon';
 import { usePathname, useRouter } from 'next/navigation';
@@ -56,61 +54,54 @@ export default function Navbar({ toggleSidebar, toggleMobileSidebar }) {
   const router = useRouter();
   const dispatch = useDispatch();
   const dropdownRef = useRef(null);
-
   const openSidebar = () => {
     setSidebarOpen(true);
   };
-
+  const currentNav = navItems.find((item) => item.path === pathname);
+  const pageTitle = currentNav ? currentNav.name : 'Dashboard';
   const closeSidebar = () => {
     setSidebarOpen(false);
   };
-
   const handleLogout = () => {
     dispatch(logout());
     router.push('/login');
   };
-
   const toggleUserDropdown = () => {
     setUserDropdownOpen(!userDropdownOpen);
   };
-
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setUserDropdownOpen(false);
       }
     };
-
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
-
+  
   return (
     <>
       <div className="h-[64px] inter border-[1px] border-gray-300 w-full flex justify-between px-3 items-center gap-2 bg-white sticky top-0 z-30 ">
         <div className="flex items-center gap-2">
           <div className="flex items-center h-full">
             <button
-              className="p-2 md:hidden flex hover:bg-gray-100 rounded-lg transition-colors bg-blue-100"
+              className="p-2 md:hidden flex  rounded-lg transition-colors cursor-pointer"
               onClick={openSidebar}
             >
               <HiMenu size={20} />
             </button>
             <button
               onClick={toggleSidebar}
-              className="p-2 hidden md:flex hover:bg-gray-100 rounded-lg transition-colors"
+              className="p-2 hidden md:flex  rounded-lg transition-colors cursor-pointer"
               aria-label="Toggle sidebar"
             >
               <SideClose />
             </button>
           </div>
-
           <div className="flex items-center gap-4 md:gap-6 lg:gap-10">
             <h3 className="text-base md:text-lg font-semibold text-gray-800 truncate">
-              Overview
+              {pageTitle}
             </h3>
-
             <div className="w-[200px] md:w-[300px] lg:w-[371px] border-[1px] rounded-lg px-3 border-gray-300 items-center hidden md:flex h-[40px]">
               <SearchIcon />
               <input
@@ -122,15 +113,12 @@ export default function Navbar({ toggleSidebar, toggleMobileSidebar }) {
         </div>
 
         <div className="flex items-center gap-2 md:gap-4">
-          {/* Menu Button for Sidebar */}
-
           <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
             <Notification />
           </button>
-
           <div className="relative" ref={dropdownRef}>
-            <div 
-              className="flex items-center gap-2 p-2 rounded-lg transition-colors cursor-pointer hover:bg-gray-100"
+            <div
+              className="flex items-center gap-2 p-2 rounded-lg transition-colors cursor-pointer "
               onClick={toggleUserDropdown}
             >
               <Image
@@ -140,8 +128,6 @@ export default function Navbar({ toggleSidebar, toggleMobileSidebar }) {
               />
               <ArrowDownIcon />
             </div>
-            
-            {/* User Dropdown */}
             {userDropdownOpen && (
               <div className="absolute right-0 top-full mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
                 <div className="py-2">
@@ -157,20 +143,15 @@ export default function Navbar({ toggleSidebar, toggleMobileSidebar }) {
           </div>
         </div>
       </div>
-
-      {/* Sidebar */}
       {sidebarOpen && (
         <div className="fixed inset-0 z-50">
-          {/* Backdrop */}
           <div
             className="fixed inset-0  bg-opacity-50 transition-opacity"
             onClick={closeSidebar}
           />
-
-          {/* Sidebar */}
           <div className="fixed top-0 left-0 h-full w-80 bg-white shadow-xl transform transition-transform duration-300 ease-in-out">
             <div className="flex items-center justify-between p-4  border-gray-200">
-              <h3 className="text-xl font-bold text-gray-800">Navigation</h3>
+              <h3 className="text-xl font-bold text-gray-800">InspireEdge</h3>
               <button
                 onClick={closeSidebar}
                 className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
@@ -179,7 +160,7 @@ export default function Navbar({ toggleSidebar, toggleMobileSidebar }) {
               </button>
             </div>
 
-            <nav className="mt-4 flex flex-col space-y-1 flex-1 overflow-y-auto px-4">
+            <nav className="mt-4 flex font-manrope flex-col space-y-1 flex-1 overflow-y-auto px-4">
               {navItems.map((item) => {
                 const isActive = pathname === item.path;
                 return (
@@ -190,7 +171,7 @@ export default function Navbar({ toggleSidebar, toggleMobileSidebar }) {
                     ${
                       isActive
                         ? 'bg-lime-300 text-black-100 shadow-sm'
-                        : 'text-black-200 hover:bg-gray-100 hover:text-black-100'
+                        : 'text-black-200  hover:text-black-100'
                     }
                   `}
                     >

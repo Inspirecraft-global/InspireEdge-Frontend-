@@ -47,7 +47,6 @@ export default function Sidebar({
 }) {
   const pathname = usePathname();
 
-  // Close mobile sidebar when route changes
   useEffect(() => {
     if (mobileSidebarOpen) {
       toggleMobileSidebar();
@@ -62,7 +61,6 @@ export default function Sidebar({
           ${collapsed ? 'w-[70px]' : 'w-[280px]'}
         `}
       >
-        {/* Header */}
         <div className="flex items-center justify-between p-4 md:p-7  border-gray-200">
           {!collapsed && (
             <h3 className="text-xl font-bold text-gray-800 truncate">
@@ -71,7 +69,6 @@ export default function Sidebar({
           )}
         </div>
 
-        {/* Navigation */}
         <nav
           className={`mt-4 flex flex-col space-y-1 flex-1 overflow-y-auto
               ${collapsed ? 'px-2' : 'px-4 md:px-7'}`}

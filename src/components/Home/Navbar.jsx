@@ -15,12 +15,12 @@ export default function Navbar() {
           InspireCraft
         </Link>
       </div>
-      <button className="bg-yellow-100 gap-2 rounded-full px-4 text-black-100 flex cursor-pointer items-center h-[48px] font-medium text-sm group">
-        Contact Us
+      <Link href={'/login'} className="bg-yellow-100 gap-2 rounded-full px-4 text-black-100 flex cursor-pointer items-center h-[48px] font-medium text-sm group">
+        Get Started
         <div className="bg-black-100 text-yellow-100 p-3 rounded-full transform rotate-[-40deg] transition-transform duration-300 group-hover:rotate-0">
           <FaArrowRight />
         </div>
-      </button>
+      </Link>
     </div>
   );
 }
